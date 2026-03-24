@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Black circular background -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M54,0C24.14,0 0,24.14 0,54C0,83.86 24.14,108 54,108C83.86,108 108,83.86 108,54C108,24.14 83.86,0 54,0Z"/>
+
+    <!-- White CF letters -->
+    <group android:translateX="20" android:translateY="20">
+        <!-- C -->
+        <path
+            android:pathData="M0,0 C0,20 20,20 20,10 C20,0 0,0 0,0 Z"
+            android:fillColor="#FFFFFF"/>
+        <!-- F -->
+        <path
+            android:pathData="M30,0 L50,0 L50,5 L35,5 L35,10 L50,10 L50,15 L35,15 L35,20 L30,20 Z"
+            android:fillColor="#FFFFFF"/>
+    </group>
+
+    <!-- Red underline -->
+    <path
+        android:pathData="M15,70 L85,70 L85,78 L15,78 Z"
+        android:fillColor="#FF0000"/>
+</vector>

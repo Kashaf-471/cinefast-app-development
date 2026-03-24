@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Rotated poster grid background -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:rotation="-20"
+        android:scaleX="2.1"
+        android:scaleY="2.1">
+
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+        </LinearLayout>
+
+        <!-- Row 4 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+        </LinearLayout>
+
+        <!-- Row 5 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+        </LinearLayout>
+
+        <!-- Row 6 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/interstellar"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shawshank"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dark_knight"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/inception"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"/>
+
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="24dp"
+        android:backgroundTint="#FF0000"
+        android:text="@string/get_started"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnStart"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/onboarding_title"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/onboarding_subtitle"
+            android:textAlignment="center"
+            android:textColor="#DDDDDD"/>
+    </LinearLayout>
+
+</RelativeLayout>
