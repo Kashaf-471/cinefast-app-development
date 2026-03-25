@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showLastBooking() {
+
         SharedPreferences prefs = requireContext()
                 .getSharedPreferences("CinefastBooking", requireContext().MODE_PRIVATE);
 
