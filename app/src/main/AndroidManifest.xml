@@ -27,21 +27,9 @@
             android:name=".OnboardingActivity"
             android:exported="true"/>
 
-        <!-- Home Screen -->
+        <!-- Main Activity (Fragment Host) -->
         <activity
-            android:name=".HomeActivity"
-            android:exported="true"/>
-
-        <activity
-            android:name=".SeatSelectionActivity"
-            android:exported="true"/>
-
-        <activity
-            android:name=".SnacksActivity"
-            android:exported="true"/>
-
-        <activity
-            android:name=".TicketSummaryActivity"
+            android:name=".MainActivity"
             android:exported="true"/>
 
     </application>

@@ -55,4 +55,11 @@
     <string name="inception_genre">Sci-Fi | 148 min</string>
     <string name="interstellar">Interstellar</string>
     <string name="interstellar_genre">Sci-Fi | 169 min</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="view_last_booking">View Last Booking</string>
+    <string name="no_previous_booking">No previous booking found.</string>
+    <string name="last_booking">Last Booking</string>
+    <string name="booking_confirmed">Booking Confirmed!</string>
+    <string name="shawshank_genre">Drama | 142 min</string>
 </resources>

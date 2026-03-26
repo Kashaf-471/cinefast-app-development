@@ -44,7 +44,7 @@ public class SeatSelectionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Get arguments
+
         Bundle args = getArguments();
         if (args != null) {
             movieName = args.getString("movieName", "Movie Title");
