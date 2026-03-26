@@ -22,6 +22,7 @@ public class SnacksFragment extends Fragment {
     private ArrayList<Snack> snackList;
     private String movieName;
     private int seatsCount;
+
     private double ticketTotal;
     private ArrayList<String> seatNumbers;
     private String rating, language, movieGenre, theater, hall, date, time;
