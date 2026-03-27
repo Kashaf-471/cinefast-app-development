@@ -61,19 +61,19 @@ public class SnacksFragment extends Fragment {
         spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 4, 8, 0);
         appName.setText(spannableString);
 
-        // Initialize snack list using Model Class + ArrayList
+
         snackList = new ArrayList<>();
         snackList.add(new Snack("Popcorn", "Large / Buttered", 8.99, R.drawable.placeholder));
         snackList.add(new Snack("Nachos", "With Cheese Dip", 7.99, R.drawable.nachos));
         snackList.add(new Snack("Soft Drink", "Large / Any Flavor", 5.99, R.drawable.drinks));
         snackList.add(new Snack("Candy Mix", "Assorted Candies", 6.99, R.drawable.candy));
 
-        // Setup Custom ListView with Custom Adapter
+
         ListView lvSnacks = view.findViewById(R.id.lvSnacks);
         SnackAdapter adapter = new SnackAdapter(requireContext(), snackList);
         lvSnacks.setAdapter(adapter);
 
-        // Confirm button
+
         Button btnConfirm = view.findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(v -> {
             double snacksTotal = 0;

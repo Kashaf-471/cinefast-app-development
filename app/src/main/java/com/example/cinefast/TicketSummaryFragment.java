@@ -164,9 +164,11 @@ public class TicketSummaryFragment extends Fragment {
         SharedPreferences prefs = getContext()
                 .getSharedPreferences("CinefastBooking", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        //editor.clear();
         editor.putString("last_movie_name", movieName);
         editor.putInt("last_seats_count", seatsCount);
         editor.putFloat("last_total_price", totalPrice);
+
         editor.apply();
     }
 }
