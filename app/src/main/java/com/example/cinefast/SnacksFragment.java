@@ -38,7 +38,7 @@ public class SnacksFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Get data from arguments
+
         Bundle args = getArguments();
         if (args != null) {
             movieName = args.getString("MOVIE_NAME");
@@ -54,7 +54,7 @@ public class SnacksFragment extends Fragment {
             time = args.getString("TIME");
         }
 
-        // Set styled app name
+
         TextView appName = view.findViewById(R.id.appName);
         SpannableString spannableString = new SpannableString("CineFAST");
         spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 4, 0);

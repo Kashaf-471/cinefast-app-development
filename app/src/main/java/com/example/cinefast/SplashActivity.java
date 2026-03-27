@@ -29,7 +29,6 @@ public class SplashActivity extends AppCompatActivity {
         logo = findViewById(R.id.logo);
         appName = findViewById(R.id.appName);
 
-        // Styling CineFAST: "Cine" in Red, "FAST" in White, all Bold
         String text = "CineFAST";
         SpannableString ss = new SpannableString(text);
         ss.setSpan(new ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -37,11 +36,11 @@ public class SplashActivity extends AppCompatActivity {
         ss.setSpan(new StyleSpan(Typeface.BOLD), 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         appName.setText(ss);
 
-        // Load and start the rotation animation
+
         Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_animation);
         logo.startAnimation(rotate);
 
-        // Move to Onboarding after 5 seconds
+
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
             finish();
