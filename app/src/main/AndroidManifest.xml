@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cinefast">
 
-        <!-- Splash Screen -->
+        <!-- Splash Screen (Launcher) -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -27,7 +29,17 @@
             android:name=".OnboardingActivity"
             android:exported="true"/>
 
-        <!-- Main Activity (Fragment Host) -->
+        <!-- Login Screen -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"/>
+
+        <!-- Signup Screen -->
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true"/>
+
+        <!-- Main Activity (Drawer + Fragment Host) -->
         <activity
             android:name=".MainActivity"
             android:exported="true"/>
