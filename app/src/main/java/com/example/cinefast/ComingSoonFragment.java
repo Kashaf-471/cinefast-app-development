@@ -28,16 +28,16 @@ public class ComingSoonFragment extends Fragment implements MovieAdapter.OnMovie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Parse movies from JSON (assets/movies.json) — NOT hardcoded
+        ArrayList<Movie> allMovies = MovieJsonParser.parseMovies(requireContext());
+
+        // Filter: only Coming Soon
         movieList = new ArrayList<>();
-        movieList.add(new Movie("The Shawshank Redemption", "Drama | 142 min",
-                R.drawable.shawshank,
-                "https://www.youtube.com/watch?v=PLl99DlL6b4", false));
-        movieList.add(new Movie("The Dark Knight Rises", "Action | 164 min",
-                R.drawable.dark_knight,
-                "https://www.youtube.com/watch?v=g8evyE9TuYk", false));
-        movieList.add(new Movie("Inception 2", "Sci-Fi | TBA",
-                R.drawable.inception,
-                "https://www.youtube.com/watch?v=YoHD9XEInc0", false));
+        for (Movie m : allMovies) {
+            if (!m.isNowShowing()) {
+                movieList.add(m);
+            }
+        }
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewMovies);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

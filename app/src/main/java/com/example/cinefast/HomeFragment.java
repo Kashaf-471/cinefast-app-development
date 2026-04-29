@@ -1,6 +1,5 @@
 package com.example.cinefast;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +35,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Set styled app name
+        // Styled app name
         TextView appName = view.findViewById(R.id.appName);
         String text = "CineFAST";
         SpannableString ss = new SpannableString(text);
@@ -46,9 +44,13 @@ public class HomeFragment extends Fragment {
         ss.setSpan(new StyleSpan(Typeface.BOLD), 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         appName.setText(ss);
 
-        // Setup 3-dot menu
+        // Hamburger menu button — opens the NavigationDrawer
         ImageView btnMenu = view.findViewById(R.id.btnMenu);
-        btnMenu.setOnClickListener(v -> showPopupMenu(v));
+        btnMenu.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).openDrawer();
+            }
+        });
 
         // Setup TabLayout + ViewPager2
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
@@ -58,51 +60,8 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(pagerAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            if (position == 0) {
-                tab.setText(R.string.now_showing);
-            } else {
-                tab.setText(R.string.coming_soon);
-            }
+            if (position == 0) tab.setText(R.string.now_showing);
+            else tab.setText(R.string.coming_soon);
         }).attach();
-    }
-
-    private void showPopupMenu(View anchor) {
-        PopupMenu popupMenu = new PopupMenu(requireContext(), anchor);
-        popupMenu.getMenu().add(getString(R.string.view_last_booking));
-
-        popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getTitle().toString().equals(getString(R.string.view_last_booking))) {
-                showLastBooking();
-                return true;
-            }
-            return false;
-        });
-
-        popupMenu.show();
-    }
-
-    private void showLastBooking() {
-
-        SharedPreferences prefs = requireContext()
-                .getSharedPreferences("CinefastBooking", requireContext().MODE_PRIVATE);
-
-        String movieName = prefs.getString("last_movie_name", null);
-        int seats = prefs.getInt("last_seats_count", -1);
-        float totalPrice = prefs.getFloat("last_total_price", -1f);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-
-        if (movieName == null || seats == -1) {
-            builder.setTitle(getString(R.string.last_booking));
-            builder.setMessage(getString(R.string.no_previous_booking));
-        } else {
-            builder.setTitle(getString(R.string.last_booking));
-            builder.setMessage("Movie: " + movieName + "\n"
-                    + "Seats: " + seats + "\n"
-                    + "Total Price: $" + String.format("%.2f", totalPrice));
-        }
-
-        builder.setPositiveButton("OK", null);
-        builder.show();
     }
 }
