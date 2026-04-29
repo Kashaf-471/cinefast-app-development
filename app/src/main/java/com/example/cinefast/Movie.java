@@ -6,6 +6,8 @@ public class Movie {
     private int posterResId;
     private String trailerUrl;
     private boolean isNowShowing;
+    // Field for JSON-based loading (drawable name string, e.g. "dark_knight")
+    private String posterName;
 
     public Movie(String name, String genre, int posterResId, String trailerUrl, boolean isNowShowing) {
         this.name = name;
@@ -13,6 +15,16 @@ public class Movie {
         this.posterResId = posterResId;
         this.trailerUrl = trailerUrl;
         this.isNowShowing = isNowShowing;
+        this.posterName = "";
+    }
+
+    public Movie(String name, String genre, String posterName, String trailerUrl, boolean isNowShowing, int posterResId) {
+        this.name = name;
+        this.genre = genre;
+        this.posterName = posterName;
+        this.trailerUrl = trailerUrl;
+        this.isNowShowing = isNowShowing;
+        this.posterResId = posterResId;
     }
 
     public String getName() { return name; }
@@ -29,4 +41,7 @@ public class Movie {
 
     public boolean isNowShowing() { return isNowShowing; }
     public void setNowShowing(boolean nowShowing) { isNowShowing = nowShowing; }
+
+    public String getPosterName() { return posterName; }
+    public void setPosterName(String posterName) { this.posterName = posterName; }
 }
