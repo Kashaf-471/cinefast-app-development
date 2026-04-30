@@ -1,0 +1,46 @@
+{
+  "movies": [
+    {
+      "name": "The Dark Knight",
+      "genre": "Action | 152 min",
+      "poster": "dark_knight",
+      "trailerUrl": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+      "isNowShowing": true
+    },
+    {
+      "name": "Inception",
+      "genre": "Sci-Fi | 148 min",
+      "poster": "inception",
+      "trailerUrl": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+      "isNowShowing": true
+    },
+    {
+      "name": "Interstellar",
+      "genre": "Sci-Fi | 169 min",
+      "poster": "interstellar",
+      "trailerUrl": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+      "isNowShowing": true
+    },
+    {
+      "name": "The Shawshank Redemption",
+      "genre": "Drama | 142 min",
+      "poster": "shawshank",
+      "trailerUrl": "https://www.youtube.com/watch?v=PLl99DlL6b4",
+      "isNowShowing": false
+    },
+    {
+      "name": "The Dark Knight Rises",
+      "genre": "Action | 164 min",
+      "poster": "dark_knight",
+      "trailerUrl": "https://www.youtube.com/watch?v=g8evyE9TuYk",
+      "isNowShowing": false
+    },
+    {
+      "name": "Inception 2",
+      "genre": "Sci-Fi | TBA",
+      "poster": "inception",
+      "trailerUrl": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+      "isNowShowing": false
+    }
+  ]
+}
