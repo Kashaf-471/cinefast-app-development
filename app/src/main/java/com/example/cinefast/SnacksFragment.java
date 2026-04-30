@@ -22,10 +22,9 @@ public class SnacksFragment extends Fragment {
     private ArrayList<Snack> snackList;
     private String movieName;
     private int seatsCount;
-
     private double ticketTotal;
     private ArrayList<String> seatNumbers;
-    private String rating, language, movieGenre, theater, hall, date, time;
+    private String rating, language, movieGenre, theater, hall, date, time, posterName;
 
     @Nullable
     @Override
@@ -38,41 +37,36 @@ public class SnacksFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         Bundle args = getArguments();
         if (args != null) {
-            movieName = args.getString("MOVIE_NAME");
-            seatsCount = args.getInt("SEATS_COUNT", 0);
-            ticketTotal = args.getDouble("TICKET_TOTAL", 0);
-            seatNumbers = args.getStringArrayList("SEAT_NUMBERS");
-            rating = args.getString("RATING");
-            language = args.getString("LANGUAGE");
-            movieGenre = args.getString("MOVIE_GENRE");
-            theater = args.getString("THEATER");
-            hall = args.getString("HALL");
-            date = args.getString("DATE");
-            time = args.getString("TIME");
+            movieName    = args.getString("MOVIE_NAME");
+            seatsCount   = args.getInt("SEATS_COUNT", 0);
+            ticketTotal  = args.getDouble("TICKET_TOTAL", 0);
+            seatNumbers  = args.getStringArrayList("SEAT_NUMBERS");
+            rating       = args.getString("RATING");
+            language     = args.getString("LANGUAGE");
+            movieGenre   = args.getString("MOVIE_GENRE");
+            theater      = args.getString("THEATER");
+            hall         = args.getString("HALL");
+            date         = args.getString("DATE");
+            time         = args.getString("TIME");
+            posterName   = args.getString("POSTER_NAME", "");
         }
 
-
+        // Styled app name header
         TextView appName = view.findViewById(R.id.appName);
         SpannableString spannableString = new SpannableString("CineFAST");
         spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 4, 0);
         spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 4, 8, 0);
         appName.setText(spannableString);
 
-
-        snackList = new ArrayList<>();
-        snackList.add(new Snack("Popcorn", "Large / Buttered", 8.99, R.drawable.placeholder));
-        snackList.add(new Snack("Nachos", "With Cheese Dip", 7.99, R.drawable.nachos));
-        snackList.add(new Snack("Soft Drink", "Large / Any Flavor", 5.99, R.drawable.drinks));
-        snackList.add(new Snack("Candy Mix", "Assorted Candies", 6.99, R.drawable.candy));
-
+        // Load snacks from SQLite database — NOT hardcoded
+        SnackDatabaseHelper dbHelper = new SnackDatabaseHelper(requireContext());
+        snackList = dbHelper.getAllSnacks();
 
         ListView lvSnacks = view.findViewById(R.id.lvSnacks);
         SnackAdapter adapter = new SnackAdapter(requireContext(), snackList);
         lvSnacks.setAdapter(adapter);
-
 
         Button btnConfirm = view.findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(v -> {
@@ -88,14 +82,6 @@ public class SnacksFragment extends Fragment {
             data.putDouble("TICKET_TOTAL", ticketTotal);
             data.putDouble("SNACKS_TOTAL", snacksTotal);
             data.putDouble("TOTAL_AMOUNT", totalAmount);
-
-            // Snack quantities
-            data.putInt("QUANTITY_POPCORN", snackList.get(0).getQuantity());
-            data.putInt("QUANTITY_NACHOS", snackList.get(1).getQuantity());
-            data.putInt("QUANTITY_SOFT_DRINK", snackList.get(2).getQuantity());
-            data.putInt("QUANTITY_CANDY_MIX", snackList.get(3).getQuantity());
-
-            // Movie and theater info
             data.putString("MOVIE_NAME", movieName);
             data.putString("RATING", rating);
             data.putString("LANGUAGE", language);
@@ -104,6 +90,15 @@ public class SnacksFragment extends Fragment {
             data.putString("HALL", hall);
             data.putString("DATE", date);
             data.putString("TIME", time);
+            data.putString("POSTER_NAME", posterName);
+
+            // Pass individual snack quantities by index (safe since DB order is consistent)
+            for (int i = 0; i < snackList.size(); i++) {
+                data.putInt("QUANTITY_" + i, snackList.get(i).getQuantity());
+                data.putString("SNACK_NAME_" + i, snackList.get(i).getName());
+                data.putDouble("SNACK_PRICE_" + i, snackList.get(i).getPrice());
+            }
+            data.putInt("SNACK_COUNT", snackList.size());
 
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).navigateToTicketSummary(data);
