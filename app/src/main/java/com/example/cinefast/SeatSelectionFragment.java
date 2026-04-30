@@ -32,6 +32,7 @@ public class SeatSelectionFragment extends Fragment {
     private String movieName;
     private boolean isNowShowing;
     private String trailerUrl;
+    private String posterName; // for passing through to booking
 
     @Nullable
     @Override
@@ -44,18 +45,18 @@ public class SeatSelectionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         Bundle args = getArguments();
         if (args != null) {
-            movieName = args.getString("movieName", "Movie Title");
+            movieName    = args.getString("movieName", "Movie Title");
             isNowShowing = args.getBoolean("isNowShowing", true);
-            trailerUrl = args.getString("trailerUrl", "");
+            trailerUrl   = args.getString("trailerUrl", "");
+            posterName   = args.getString("posterName", "");
         }
 
-        seatGrid = view.findViewById(R.id.seatGrid);
-        btnBookSeats = view.findViewById(R.id.btnBookSeats);
-        btnProceedSnacks = view.findViewById(R.id.btnProceedSnacks);
-        tvMovieName = view.findViewById(R.id.tvMovieName);
+        seatGrid         = view.findViewById(R.id.seatGrid);
+        btnBookSeats      = view.findViewById(R.id.btnBookSeats);
+        btnProceedSnacks  = view.findViewById(R.id.btnProceedSnacks);
+        tvMovieName       = view.findViewById(R.id.tvMovieName);
         ImageView btnBack = view.findViewById(R.id.btnBack);
 
         tvMovieName.setText(movieName);
@@ -69,7 +70,6 @@ public class SeatSelectionFragment extends Fragment {
         createSeatGrid();
 
         if (isNowShowing) {
-            // Now Showing behavior: normal seat selection
             updateButtonStates();
 
             btnBookSeats.setOnClickListener(v -> {
@@ -90,10 +90,8 @@ public class SeatSelectionFragment extends Fragment {
                 data.putString("HALL", "1st");
                 data.putString("DATE", "13.04.2025");
                 data.putString("TIME", "22:15");
-                data.putInt("QUANTITY_POPCORN", 0);
-                data.putInt("QUANTITY_NACHOS", 0);
-                data.putInt("QUANTITY_SOFT_DRINK", 0);
-                data.putInt("QUANTITY_CANDY_MIX", 0);
+                data.putString("POSTER_NAME", posterName);
+                data.putInt("SNACK_COUNT", 0);
 
                 if (getActivity() instanceof MainActivity) {
                     ((MainActivity) getActivity()).navigateToTicketSummary(data);
@@ -106,13 +104,14 @@ public class SeatSelectionFragment extends Fragment {
                             movieName,
                             new ArrayList<>(selectedSeatNumbers),
                             selectedSeatNumbers.size() * TICKET_PRICE,
-                            selectedSeatNumbers.size()
+                            selectedSeatNumbers.size(),
+                            posterName
                     );
                 }
             });
 
         } else {
-            // Coming Soon behavior: seats disabled, different buttons
+            // Coming Soon — disable seats
             btnBookSeats.setText(R.string.coming_soon);
             btnBookSeats.setEnabled(false);
             btnBookSeats.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF888888));
@@ -125,8 +124,7 @@ public class SeatSelectionFragment extends Fragment {
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
-                    startActivity(browserIntent);
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl)));
                 }
             });
         }
@@ -135,9 +133,7 @@ public class SeatSelectionFragment extends Fragment {
     private void createSeatGrid() {
         int rows = 8;
         seatGrid.setColumnCount(9);
-        seatGrid.removeAllViews(); // Clear any existing views just in case
-
-        // Clear the list of TextViews because we are creating new ones
+        seatGrid.removeAllViews();
         selectedSeats.clear();
 
         String[] bookedSeats = {"A2", "A7", "D4", "D5", "H3", "H6"};
@@ -178,11 +174,8 @@ public class SeatSelectionFragment extends Fragment {
                 String seatId = (char) ('A' + row) + String.valueOf(seatIndex + 1);
                 seat.setText("");
                 seat.setBackgroundResource(R.drawable.seat_selector);
-                
-                // Initialize as available
                 seat.setTag("available");
 
-                // Check if booked
                 for (String b : bookedSeats) {
                     if (b.equals(seatId)) {
                         seat.setEnabled(false);
@@ -190,20 +183,17 @@ public class SeatSelectionFragment extends Fragment {
                     }
                 }
 
-                // Restore selection if it was already selected
                 if (selectedSeatNumbers.contains(seatId)) {
                     seat.setSelected(true);
                     seat.setTag("yours");
                     selectedSeats.add(seat);
                 }
 
-                // If Coming Soon, disable all seats
                 if (!isNowShowing) {
                     seat.setEnabled(false);
                 } else {
                     seat.setOnClickListener(v -> {
                         TextView clickedSeat = (TextView) v;
-
                         if ("available".equals(v.getTag())) {
                             v.setSelected(true);
                             v.setTag("yours");
@@ -215,7 +205,6 @@ public class SeatSelectionFragment extends Fragment {
                             selectedSeats.remove(clickedSeat);
                             selectedSeatNumbers.remove(seatId);
                         }
-
                         updateButtonStates();
                     });
                 }
@@ -226,12 +215,8 @@ public class SeatSelectionFragment extends Fragment {
     }
 
     private void updateButtonStates() {
-        if (selectedSeatNumbers.isEmpty()) {
-            btnBookSeats.setEnabled(false);
-            btnProceedSnacks.setEnabled(false);
-        } else {
-            btnBookSeats.setEnabled(true);
-            btnProceedSnacks.setEnabled(true);
-        }
+        boolean hasSelection = !selectedSeatNumbers.isEmpty();
+        btnBookSeats.setEnabled(hasSelection);
+        btnProceedSnacks.setEnabled(hasSelection);
     }
 }

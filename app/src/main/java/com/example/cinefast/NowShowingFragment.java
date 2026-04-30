@@ -28,16 +28,16 @@ public class NowShowingFragment extends Fragment implements MovieAdapter.OnMovie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Parse movies from JSON (assets/movies.json) — NOT hardcoded
+        ArrayList<Movie> allMovies = MovieJsonParser.parseMovies(requireContext());
+
+        // Filter: only Now Showing
         movieList = new ArrayList<>();
-        movieList.add(new Movie("The Dark Knight", "Action | 152 min",
-                R.drawable.dark_knight,
-                "https://www.youtube.com/watch?v=EXeTwQWrcwY", true));
-        movieList.add(new Movie("Inception", "Sci-Fi | 148 min",
-                R.drawable.inception,
-                "https://www.youtube.com/watch?v=YoHD9XEInc0", true));
-        movieList.add(new Movie("Interstellar", "Sci-Fi | 169 min",
-                R.drawable.interstellar,
-                "https://www.youtube.com/watch?v=zSWdZVtXT7E", true));
+        for (Movie m : allMovies) {
+            if (m.isNowShowing()) {
+                movieList.add(m);
+            }
+        }
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewMovies);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
