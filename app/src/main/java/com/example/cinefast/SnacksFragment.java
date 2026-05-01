@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,6 +71,7 @@ public class SnacksFragment extends Fragment {
 
         Button btnConfirm = view.findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(v -> {
+            Toast.makeText(getContext(), getString(R.string.booking_confirmed), Toast.LENGTH_SHORT).show();
             double snacksTotal = 0;
             for (Snack snack : snackList) {
                 snacksTotal += snack.getQuantity() * snack.getPrice();

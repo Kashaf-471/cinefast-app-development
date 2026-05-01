@@ -48,6 +48,16 @@ public class TicketSummaryFragment extends Fragment {
             }
         });
 
+        // Hamburger menu button — opens the NavigationDrawer
+        ImageView ivMenu = view.findViewById(R.id.ivMenu);
+        if (ivMenu != null) {
+            ivMenu.setOnClickListener(v -> {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).openDrawer();
+                }
+            });
+        }
+
         Bundle args = getArguments();
         if (args == null) return;
 
@@ -103,7 +113,7 @@ public class TicketSummaryFragment extends Fragment {
         tvSeatInfo.setText(seatsStr.toString().trim());
         tvTicketPrice.setText(seatsPriceStr.toString().trim());
 
-        // Snacks display — dynamic from SQLite data passed via bundle
+        // Snacks display
         StringBuilder snacksInfoSb = new StringBuilder();
         StringBuilder snacksPriceSb = new StringBuilder();
         for (int i = 0; i < snackCount; i++) {
@@ -115,7 +125,6 @@ public class TicketSummaryFragment extends Fragment {
                 snacksPriceSb.append(String.format("%.2f USD\n", qty * snackPrice));
             }
         }
-        // Fallback for legacy bundle keys (Assignment 2 compatibility)
         if (snackCount == 0) {
             int qPopcorn = args.getInt("QUANTITY_POPCORN", 0);
             int qNachos  = args.getInt("QUANTITY_NACHOS", 0);
@@ -138,7 +147,6 @@ public class TicketSummaryFragment extends Fragment {
             if (resId != 0) ivMoviePoster.setImageResource(resId);
             else ivMoviePoster.setImageResource(R.drawable.placeholder);
         } else if (movieName != null) {
-            // Legacy fallback
             if (movieName.contains("Dark Knight")) ivMoviePoster.setImageResource(R.drawable.dark_knight);
             else if (movieName.contains("Inception")) ivMoviePoster.setImageResource(R.drawable.inception);
             else if (movieName.contains("Interstellar")) ivMoviePoster.setImageResource(R.drawable.interstellar);
@@ -146,12 +154,11 @@ public class TicketSummaryFragment extends Fragment {
             else ivMoviePoster.setImageResource(R.drawable.placeholder);
         }
 
-        // Save booking locally (SharedPreferences)
+        // Save booking locally
         int seatsCount = (seatNumbers != null) ? seatNumbers.size() : 0;
         saveLastBooking(movieName, seatsCount, (float) totalAmount);
 
-        // Save booking to Firebase Realtime Database
-        // TODO: Requires google-services.json + Firebase project setup
+        // Save booking to Firebase
         saveBookingToFirebase(movieName, seatNumbers, totalAmount, date, time, posterName);
 
         // Send Ticket Button
@@ -185,22 +192,18 @@ public class TicketSummaryFragment extends Fragment {
 
     private void saveBookingToFirebase(String movieName, ArrayList<String> seatNumbers,
                                        double totalPrice, String date, String time, String posterName) {
-        // TODO: Requires google-services.json + Firebase Auth + Realtime Database enabled
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) return; // Not logged in, skip
+        if (user == null) return;
 
         String userId = user.getUid();
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
 
-        // Create a unique booking ID
         DatabaseReference newBookingRef = bookingsRef.child(userId).push();
         String bookingId = newBookingRef.getKey();
 
-        // Build dateTime string and timestamp for cancellation comparison
-        String dateTime = date + " " + time; // e.g. "13.04.2025 22:15"
+        String dateTime = date + " " + time;
         long timestamp = System.currentTimeMillis();
 
-        // Try to parse actual booking date/time for future comparison
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
             Date bookingDate = sdf.parse(dateTime);
