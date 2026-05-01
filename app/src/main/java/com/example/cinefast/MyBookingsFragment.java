@@ -197,27 +197,56 @@ public class MyBookingsFragment extends Fragment implements BookingAdapter.OnCan
 
     private void cancelBooking(Booking booking, int position) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) return;
+        if (user == null) {
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         String userId = user.getUid();
         String bookingId = booking.getBookingId();
 
-        mDatabase.child("bookings").child(userId).child(bookingId)
-                .removeValue()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        adapter.removeItem(position);
-                        Toast.makeText(getContext(), "Booking Cancelled Successfully",
-                                Toast.LENGTH_SHORT).show();
+        if (bookingId == null || bookingId.isEmpty()) {
+            Toast.makeText(getContext(), "Invalid booking ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                        if (bookingList.isEmpty()) {
-                            tvEmpty.setVisibility(View.VISIBLE);
-                            recyclerView.setVisibility(View.GONE);
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Cancellation failed. Try again.",
-                                Toast.LENGTH_SHORT).show();
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference("bookings")
+                .child(userId)
+                .child(bookingId);
+
+
+        android.util.Log.d("CANCEL_BOOKING",
+                "Attempting delete at path: bookings/" + userId + "/" + bookingId);
+
+        ref.removeValue()
+                .addOnSuccessListener(aVoid -> {
+
+                    android.util.Log.d("CANCEL_BOOKING",
+                            "SUCCESS delete: " + bookingId);
+
+                    adapter.removeItem(position);
+
+                    Toast.makeText(getContext(),
+                            "Booking Cancelled Successfully",
+                            Toast.LENGTH_SHORT).show();
+
+                    if (bookingList.isEmpty()) {
+                        tvEmpty.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
                     }
+
+
+
+                })
+                .addOnFailureListener(e -> {
+
+                    android.util.Log.e("CANCEL_BOOKING",
+                            "FAILED delete: " + bookingId + " error: " + e.getMessage());
+
+                    Toast.makeText(getContext(),
+                            "Cancellation failed: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 });
     }
 }
