@@ -32,7 +32,9 @@ public class SeatSelectionFragment extends Fragment {
     private String movieName;
     private boolean isNowShowing;
     private String trailerUrl;
-    private String posterName; // for passing through to booking
+    private String posterName; 
+    private String date; // Actual movie date from JSON
+    private String time; // Actual movie time from JSON
 
     @Nullable
     @Override
@@ -51,6 +53,8 @@ public class SeatSelectionFragment extends Fragment {
             isNowShowing = args.getBoolean("isNowShowing", true);
             trailerUrl   = args.getString("trailerUrl", "");
             posterName   = args.getString("posterName", "");
+            date         = args.getString("date", "13.04.2025");
+            time         = args.getString("time", "22:15");
         }
 
         seatGrid         = view.findViewById(R.id.seatGrid);
@@ -88,8 +92,8 @@ public class SeatSelectionFragment extends Fragment {
                 data.putString("MOVIE_GENRE", "ScreenX Dolby Atmos");
                 data.putString("THEATER", "Stars (90°Mall)");
                 data.putString("HALL", "1st");
-                data.putString("DATE", "13.04.2025");
-                data.putString("TIME", "22:15");
+                data.putString("DATE", date);
+                data.putString("TIME", time);
                 data.putString("POSTER_NAME", posterName);
                 data.putInt("SNACK_COUNT", 0);
 
@@ -105,7 +109,9 @@ public class SeatSelectionFragment extends Fragment {
                             new ArrayList<>(selectedSeatNumbers),
                             selectedSeatNumbers.size() * TICKET_PRICE,
                             selectedSeatNumbers.size(),
-                            posterName
+                            posterName,
+                            date,
+                            time
                     );
                 }
             });

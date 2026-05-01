@@ -5,42 +5,54 @@
       "genre": "Action | 152 min",
       "poster": "dark_knight",
       "trailerUrl": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
-      "isNowShowing": true
+      "isNowShowing": true,
+      "date": "09.05.2026",
+      "time": "20:00"
     },
     {
       "name": "Inception",
       "genre": "Sci-Fi | 148 min",
       "poster": "inception",
       "trailerUrl": "https://www.youtube.com/watch?v=YoHD9XEInc0",
-      "isNowShowing": true
+      "isNowShowing": true,
+      "date": "13.04.2025",
+      "time": "22:15"
     },
     {
       "name": "Interstellar",
       "genre": "Sci-Fi | 169 min",
       "poster": "interstellar",
       "trailerUrl": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
-      "isNowShowing": true
+      "isNowShowing": true,
+      "date": "15.04.2025",
+      "time": "18:30"
     },
     {
-      "name": "The Shawshank Redemption",
+      "name": "Shawshank Redemption",
       "genre": "Drama | 142 min",
       "poster": "shawshank",
       "trailerUrl": "https://www.youtube.com/watch?v=PLl99DlL6b4",
-      "isNowShowing": false
+      "isNowShowing": false,
+      "date": "20.05.2025",
+      "time": "14:00"
     },
     {
       "name": "The Dark Knight Rises",
       "genre": "Action | 164 min",
       "poster": "dark_knight",
       "trailerUrl": "https://www.youtube.com/watch?v=g8evyE9TuYk",
-      "isNowShowing": false
+      "isNowShowing": false,
+      "date": "25.05.2025",
+      "time": "21:00"
     },
     {
       "name": "Inception 2",
       "genre": "Sci-Fi | TBA",
       "poster": "inception",
       "trailerUrl": "https://www.youtube.com/watch?v=YoHD9XEInc0",
-      "isNowShowing": false
+      "isNowShowing": false,
+      "date": "01.06.2025",
+      "time": "19:00"
     }
   ]
 }

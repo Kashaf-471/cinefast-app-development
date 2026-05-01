@@ -37,6 +37,10 @@ public class MovieJsonParser {
                 String posterName = obj.getString("poster");
                 String trailerUrl = obj.getString("trailerUrl");
                 boolean isNowShowing = obj.getBoolean("isNowShowing");
+                
+                // Read date and time from JSON
+                String date = obj.optString("date", "13.04.2025");
+                String time = obj.optString("time", "22:15");
 
                 // Resolve drawable resource ID from name string
                 int resId = context.getResources().getIdentifier(
@@ -45,7 +49,10 @@ public class MovieJsonParser {
                     resId = R.drawable.placeholder; // Fallback if not found
                 }
 
-                movies.add(new Movie(name, genre, posterName, trailerUrl, isNowShowing, resId));
+                Movie movie = new Movie(name, genre, posterName, trailerUrl, isNowShowing, resId);
+                movie.setDate(date);
+                movie.setTime(time);
+                movies.add(movie);
             }
         } catch (Exception e) {
             e.printStackTrace();

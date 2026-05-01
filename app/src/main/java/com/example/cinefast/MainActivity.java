@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void performLogout() {
         // Sign out from Firebase Auth
-        // TODO: Requires google-services.json + Firebase Auth setup
         FirebaseAuth.getInstance().signOut();
 
         // Clear session in SharedPreferences
@@ -100,18 +99,15 @@ public class MainActivity extends AppCompatActivity {
         args.putString("trailerUrl", movie.getTrailerUrl());
         args.putBoolean("isNowShowing", movie.isNowShowing());
         args.putString("posterName", movie.getPosterName());
+        args.putString("date", movie.getDate());
+        args.putString("time", movie.getTime());
         fragment.setArguments(args);
         loadFragment(fragment, true);
     }
 
     // Seat Selection -> Snacks
     public void navigateToSnacks(String movieName, ArrayList<String> seatNumbers,
-                                  double ticketTotal, int seatsCount) {
-        navigateToSnacks(movieName, seatNumbers, ticketTotal, seatsCount, null);
-    }
-
-    public void navigateToSnacks(String movieName, ArrayList<String> seatNumbers,
-                                  double ticketTotal, int seatsCount, String posterName) {
+                                  double ticketTotal, int seatsCount, String posterName, String date, String time) {
         SnacksFragment fragment = new SnacksFragment();
         Bundle args = new Bundle();
         args.putString("MOVIE_NAME", movieName);
@@ -123,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         args.putString("MOVIE_GENRE", "ScreenX Dolby Atmos");
         args.putString("THEATER", "Stars (90°Mall)");
         args.putString("HALL", "1st");
-        args.putString("DATE", "13.04.2025");
-        args.putString("TIME", "22:15");
+        args.putString("DATE", date);
+        args.putString("TIME", time);
         args.putString("POSTER_NAME", posterName != null ? posterName : "");
         fragment.setArguments(args);
         loadFragment(fragment, true);

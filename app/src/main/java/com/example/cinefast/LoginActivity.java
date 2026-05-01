@@ -23,8 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister;
     private ImageView ivBack;
 
-    // Firebase Auth instance
-    // TODO: Requires google-services.json in app/ directory
     private FirebaseAuth mAuth;
 
     @Override
@@ -64,15 +62,16 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setEnabled(false);
 
-        // TODO: Firebase Authentication — requires google-services.json + Firebase project setup
+        // Firebase Authentication
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     btnLogin.setEnabled(true);
                     if (task.isSuccessful()) {
-                        // Save session if "Remember Me" checked
+                        // Save persistent session ONLY if "Remember Me" is checked
                         if (cbRememberMe.isChecked()) {
                             saveSession(email);
                         }
+
                         navigateToMain();
                     } else {
                         String msg = task.getException() != null
@@ -92,10 +91,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToMain() {
-        // Always save session on successful login (not just when remember me is checked)
-        SharedPreferences prefs = getSharedPreferences("cinefast_session_pref_v3", MODE_PRIVATE);
-        prefs.edit().putBoolean("is_logged_in", true).apply();
-
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

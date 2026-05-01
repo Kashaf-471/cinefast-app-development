@@ -24,7 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class MyBookingsFragment extends Fragment implements BookingAdapter.OnCancelClickListener {
 
@@ -60,7 +63,7 @@ public class MyBookingsFragment extends Fragment implements BookingAdapter.OnCan
             }
         });
 
-        // Menu button (Three dots) should open the navigation drawer
+        // Menu button (Hamburger) should open the navigation drawer
         view.findViewById(R.id.ivMenu).setOnClickListener(v -> {
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).openDrawer();
@@ -110,7 +113,11 @@ public class MyBookingsFragment extends Fragment implements BookingAdapter.OnCan
                                 }
                                 if (bookingSnap.hasChild("timestamp")) {
                                     Object tsObj = bookingSnap.child("timestamp").getValue();
-                                    if (tsObj instanceof Long) booking.setTimestamp((Long) tsObj);
+                                    if (tsObj instanceof Long) {
+                                        booking.setTimestamp((Long) tsObj);
+                                    } else if (tsObj instanceof Double) {
+                                        booking.setTimestamp(((Double) tsObj).longValue());
+                                    }
                                 }
                                 if (bookingSnap.hasChild("posterName"))
                                     booking.setPosterName(bookingSnap.child("posterName").getValue(String.class));
@@ -158,9 +165,25 @@ public class MyBookingsFragment extends Fragment implements BookingAdapter.OnCan
     @Override
     public void onCancelClick(Booking booking, int position) {
         long now = System.currentTimeMillis();
+        long bookingTimestamp = booking.getTimestamp();
 
-        if (booking.getTimestamp() <= now) {
-            Toast.makeText(getContext(), "Cannot cancel past bookings", Toast.LENGTH_SHORT).show();
+        // Prefer parsing the dateTime string directly if it exists, 
+        // as it's more reliable when users are editing JSON data.
+        if (booking.getDateTime() != null && !booking.getDateTime().isEmpty()) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
+                Date bookingDate = sdf.parse(booking.getDateTime());
+                if (bookingDate != null) {
+                    bookingTimestamp = bookingDate.getTime();
+                }
+            } catch (Exception e) {
+                // Keep the existing timestamp if parsing fails
+            }
+        }
+
+        if (bookingTimestamp <= now) {
+            String dateInfo = (booking.getDateTime() != null) ? booking.getDateTime() : "unknown";
+            Toast.makeText(getContext(), "Cannot cancel past bookings (Date: " + dateInfo + ")", Toast.LENGTH_LONG).show();
             return;
         }
 
